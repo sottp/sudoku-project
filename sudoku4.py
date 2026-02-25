@@ -4,6 +4,7 @@ from sudoku_board import Sudoku
 import sys
 import shutil
 
+
 def lpCombine():
     destination = "combine.lp"
     append_file = "instances/lp/ex00.lp"

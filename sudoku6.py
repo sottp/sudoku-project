@@ -6,7 +6,7 @@ import shutil
 import clingo
 
 def lpCombine():
-    destination = "combine.lp"
+    destination = "sudoku_py.lp"
     append_file = "instances/lp/ex00.lp"
 
     if len(sys.argv) == 2:
@@ -22,7 +22,7 @@ class SudokuApp(Application):
     def main(self, ctl, files):
         lpCombine()
 
-        ctl.load("combine.lp")
+        ctl.load("sudoku_py.lp")
 
         for f in files:
             ctl.load(f)
