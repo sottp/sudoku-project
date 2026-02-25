@@ -3,6 +3,7 @@ from sudoku_board import Sudoku
 
 import sys
 import shutil
+import clingo
 
 def lpCombine():
     destination = "combine.lp"
@@ -33,6 +34,15 @@ class SudokuApp(Application):
         sudoku = Sudoku.from_model(model)
         print(sudoku)
 
+    class Context:
+        def __init__(self, board: Sudoku):
+            self.board = board
+
+        def initial(self) -> list[clingo.symbol.Symbol]:
+            facts = []
+            for (r, c), v in self.board.sudoku.items():
+                facts.append(clingo.Function("initial", [clingo.Number(r),clingo.Number(c),clingo.Number(v)]))
+            return facts
 
 
 if __name__ == "__main__":

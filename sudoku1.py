@@ -1,4 +1,3 @@
-import sys
 from clingo.application import Application, clingo_main
 
 import sys
@@ -31,8 +30,16 @@ class SudokuApp(Application):
         ctl.solve()
 
     def print_model(self, model, printer):
-        atoms = sorted(model.symbols(shown=True), key=str)
-        print(" ".join(str(a) for a in atoms))
+        atoms = []
+
+        for atom in model.symbols(shown=True):
+            if atom.name == "cell" and len(atom.arguments) == 3:
+                r, c, v = atom.arguments
+                atoms.append(f"sudoku({r},{c},{v})")
+
+        atoms.sort()
+        print(' '.join(atoms))
+
 
 if __name__ == "__main__":
     clingo_main(SudokuApp(), sys.argv[1:])
