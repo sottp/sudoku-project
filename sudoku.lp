@@ -3,14 +3,14 @@ row(1..9).
 col(1..9).
 num(1..9).
 
-% Each cell contains exactly one number
-1 { cell(R, C, N) : num(N) } 1 :- row(R), col(C).
+% Each instance contains exactly one number
+1 { instance(R, C, N) : num(N) } 1 :- row(R), col(C).
 
 % Row constraint
-:- cell(R, C1, N), cell(R, C2, N), C1 != C2.
+:- instance(R, C1, N), instance(R, C2, N), C1 != C2.
 
 % Column constraint
-:- cell(R1, C, N), cell(R2, C, N), R1 != R2.
+:- instance(R1, C, N), instance(R2, C, N), R1 != R2.
 
 % Block definition
 block(BR, BC, R, C) :-
@@ -19,11 +19,14 @@ block(BR, BC, R, C) :-
     C = 3*(BC-1)+1 .. 3*BC.
 
 % Block constraint
-:- cell(R1, C1, N), cell(R2, C2, N),
+:- instance(R1, C1, N), instance(R2, C2, N),
    block(BR, BC, R1, C1),
    block(BR, BC, R2, C2),
    (R1, C1) != (R2, C2).
 
-#show cell/3.
+#show instance/3.
+
+% Enforce initial clues
+:- initial(R, C, N), not instance(R, C, N).
 
 % Sudoku bits

@@ -12,8 +12,8 @@ def lpCombine():
 
     open(destination, "w").close()#wipe
 
-    shutil.copyfile("sudoku.lp", destination)
-    with open(append_file, "r") as f_in, open(destination, "a") as f_out:
+    shutil.copyfile(append_file, destination)
+    with open("sudoku.lp", "r") as f_in, open(destination, "a") as f_out:
         f_out.write(f_in.read())
 
 
@@ -33,7 +33,7 @@ class SudokuApp(Application):
         atoms = []
 
         for atom in model.symbols(shown=True):
-            if atom.name == "cell" and len(atom.arguments) == 3:
+            if atom.name == "instance" and len(atom.arguments) == 3:
                 r, c, v = atom.arguments
                 atoms.append(f"sudoku({r},{c},{v})")
 

@@ -56,8 +56,8 @@ class Sudoku:
         r,c,v = 0,0,0
 
         for atom in model.symbols(shown=True):
-            if len(atom.arguments) == 3:
-            # if atom.name == "cell" and len(atom.arguments) == 3:
+            # if len(atom.arguments) == 3:
+            if atom.name == "instance" and len(atom.arguments) == 3:
                 r = atom.arguments[0].number
                 c = atom.arguments[1].number
                 v = atom.arguments[2].number
