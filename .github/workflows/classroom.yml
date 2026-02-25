@@ -1,0 +1,175 @@
+name: Autograding Tests
+on:
+  - push
+  - workflow_dispatch
+  - repository_dispatch
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Miniconda + Python 3.9 + Clingo
+      shell: bash
+      run: |
+        echo "✅ Setting up conda environment with Python 3.9 and Clingo"
+        conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+        conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+        conda install python=3.9 --yes
+        conda install -c potassco clingo=5.6.2 --yes
+        echo "✅ Finished environment setup"
+        /usr/share/miniconda/bin/python3.9 -c "import clingo; print('Detected clingo:', clingo.__version__)"
+
+    - name: Question 0a
+      id: question-0a
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 0a: group.txt exists'
+        command: 'ls group.txt'
+        timeout: '10'
+        max-score: '0'
+
+    - name: Question 0b
+      id: question-0b
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 0b: group.txt is not empty'
+        command: 'ls group.txt && [ -s group.txt ]'
+        timeout: '10'
+        max-score: '0'
+
+    - name: Question 1a
+      id: question-1a
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 1a'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=1a'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Question 1b
+      id: question-1b
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 1b'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=1b'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Question 2
+      id: question-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 2'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=2'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Question 3
+      id: question-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 3'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=3'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Question 4
+      id: question-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 4'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=4'
+        timeout: '30'
+        max-score: '30'
+
+    - name: Question 5
+      id: question-5
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 5'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=5'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Question 6a
+      id: question-6a
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 6a'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=6a'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Question 6b
+      id: question-6b
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Question 6b'
+        setup-command: |
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main || true
+          conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r || true
+          conda install python=3.9 --yes
+          conda install -c potassco clingo=5.6.2 --yes
+        command: '/usr/share/miniconda/bin/python3.9 autograder.py --question=6b'
+        timeout: '20'
+        max-score: '10'
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        QUESTION-0A_RESULTS: "${{steps.question-0a.outputs.result}}"
+        QUESTION-0B_RESULTS: "${{steps.question-0b.outputs.result}}"
+        QUESTION-1A_RESULTS: "${{steps.question-1a.outputs.result}}"
+        QUESTION-1B_RESULTS: "${{steps.question-1b.outputs.result}}"
+        QUESTION-2_RESULTS:  "${{steps.question-2.outputs.result}}"
+        QUESTION-3_RESULTS:  "${{steps.question-3.outputs.result}}"
+        QUESTION-4_RESULTS:  "${{steps.question-4.outputs.result}}"
+        QUESTION-5_RESULTS:  "${{steps.question-5.outputs.result}}"
+        QUESTION-6A_RESULTS:  "${{steps.question-6a.outputs.result}}"
+        QUESTION-6B_RESULTS:  "${{steps.question-6b.outputs.result}}"
+      with:
+        runners: 'question-0a,question-0b,question-1a,question-1b,question-2,question-3,question-4,question-5,question-6a,question-6b'

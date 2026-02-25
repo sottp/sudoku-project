@@ -1,0 +1,8 @@
+cd coloring
+clingo coloring.lp graph01.lp
+python ../myclingo.py coloring.lp graph01.lp
+python ../sortedclingo.py coloring.lp graph01.lp
+python coloring01.py
+python coloring02.py graph01.lp
+wslview  colored_graph.gv.pdf
+python coloring.py graph01.txt 
